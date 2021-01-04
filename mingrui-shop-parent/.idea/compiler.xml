@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="mingrui-shop-basic-upload-server" />
+        <module name="mingrui-shop-common-core" />
+        <module name="mingrui-shop-service-xxx" />
+        <module name="mingrui-shop-parent2" />
+        <module name="mingrui-shop-service-api-xxx" />
+        <module name="mingrui-shop-basics-eureka-server" />
+        <module name="mingrui-shop-basic-zuul-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mingrui-shop-parent2" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mingrui-shop-basic-upload-server" options="-parameters" />
+      <module name="mingrui-shop-basic-zuul-server" options="-parameters" />
+      <module name="mingrui-shop-basics-eureka-server" options="-parameters" />
+      <module name="mingrui-shop-commoms" options="-parameters" />
+      <module name="mingrui-shop-common-core" options="-parameters" />
+      <module name="mingrui-shop-service" options="-parameters" />
+      <module name="mingrui-shop-service-api" options="-parameters" />
+      <module name="mingrui-shop-service-api-xxx" options="-parameters" />
+      <module name="mingrui-shop-service-xxx" options="-parameters" />
+    </option>
+  </component>
+</project>
