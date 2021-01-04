@@ -2,7 +2,9 @@ package com.baidu.shop.service.impl;
 
 import com.baidu.shop.base.BaseApiService;
 import com.baidu.shop.base.Result;
+import com.baidu.shop.entity.CategoryBrandEntity;
 import com.baidu.shop.entity.CategoryEntity;
+import com.baidu.shop.mapper.CategoryBrandMapper;
 import com.baidu.shop.mapper.CategoryMapper;
 import com.baidu.shop.service.CategoryService;
 import com.baidu.shop.utils.ObjectUtil;
@@ -20,6 +22,9 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private CategoryBrandMapper categoryBrandMapper;
 
 
     @Override
@@ -40,8 +45,15 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         //判断查询的数据是否为空
         if(ObjectUtil.isNull(categoryEntity)) return this.setResultError("数据不存在");
         //判断查询数据的父节点下有无其他节点
-        if(categoryEntity.getIsParent() == 1) return this.setResultError("当前节点为父节点");
+        if(categoryEntity.getIsParent() >= 1) return this.setResultError("当前节点为父节点");
         //获取父节点下的其他子节点的数据
+
+        //如果当前分类被品牌绑定的话不能被删除 --> 通过分类id查询中间表是否有数据 true : 当前分类不能被删除 false:继续执行
+        Example example1 = new Example(CategoryBrandEntity.class);
+        example1.createCriteria().andEqualTo("brandId",id);
+        List<CategoryBrandEntity> categoryBrandEntities = categoryBrandMapper.selectByExample(example1);
+        if(categoryBrandEntities.size()>=1)return this.setResultError("当前分类被其他品牌绑定,无法进行删除");
+
         Example example = new Example(categoryEntity.getClass());
         example.createCriteria().andEqualTo("parentId",categoryEntity.getParentId());
         List<CategoryEntity> categoryList = categoryMapper.selectByExample(example);
