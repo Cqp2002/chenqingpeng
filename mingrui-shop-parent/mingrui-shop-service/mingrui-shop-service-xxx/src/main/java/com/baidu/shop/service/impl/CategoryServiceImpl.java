@@ -57,10 +57,10 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         Example example = new Example(categoryEntity.getClass());
         example.createCriteria().andEqualTo("parentId",categoryEntity.getParentId());
         List<CategoryEntity> categoryList = categoryMapper.selectByExample(example);
-        //判断其他子节点的数据条数是否小于等于1
+        //判断其他子节点的数据条数是否小于等于1SAFJSA
         if(categoryList.size() <= 1){
             CategoryEntity categoryEntity1 = new CategoryEntity();
-            //当父节点下只有一个或没有子节点时
+            //当父节点下只有一个或没有子节点时ASDAS
             //将该节点的父节点的值修改为0
             categoryEntity1.setIsParent(0);
             //将该节点的id修改为该节点的父id
