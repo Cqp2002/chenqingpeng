@@ -26,6 +26,9 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
     @Autowired
     private SpecParamMapper specParamMapper;
 
+
+    //陈辞v 永远的神
+
     @Override
     public Result<List<SpecGroupEntity>> getSpecGroupInfo(SpecGroupDTO specGroupDTO) {
         Example example = new Example(SpecGroupEntity.class);
