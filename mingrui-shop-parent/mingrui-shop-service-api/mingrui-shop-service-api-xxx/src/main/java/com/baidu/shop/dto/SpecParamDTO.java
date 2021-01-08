@@ -17,12 +17,15 @@ public class SpecParamDTO {
     private Integer id;
 
     @ApiModelProperty(value = "分类id", example = "1")
+    @NotNull(message = "分类id不能为null",groups = {MingruiOperation.Add.class})
     private Integer cid;
 
     @ApiModelProperty(value = "规格组id", example = "1")
+    @NotNull(message = "规格组id不能为null",groups = {MingruiOperation.Add.class})
     private Integer groupId;
 
     @ApiModelProperty(value = "规格参数名称")
+    @NotNull(message = "规格参数名称不能为null",groups = {MingruiOperation.Add.class})
     private String name;
 
     @ApiModelProperty(value = "是否是数字类型参数，1->true或0->false", example = "0")

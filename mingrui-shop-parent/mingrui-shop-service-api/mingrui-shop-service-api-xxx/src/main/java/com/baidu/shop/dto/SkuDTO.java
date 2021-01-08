@@ -1,9 +1,11 @@
 package com.baidu.shop.dto;
 
+import com.baidu.shop.validate.group.MingruiOperation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @ApiModel(value = "SKU属性数据传输类")
@@ -11,18 +13,22 @@ import java.util.Date;
 public class SkuDTO {
 
     @ApiModelProperty(value = "主键", example = "1")
+    @NotNull(message = "主键id不能为空",groups = {MingruiOperation.Update.class})
     private Long id;
 
     @ApiModelProperty(value = "spu主键", example = "1")
+    @NotNull(message = "squ主键不能为空",groups = {MingruiOperation.Update.class})
     private Integer spuId;
 
     @ApiModelProperty(value = "商品标题")
+    @NotNull(message = "商品标题name不能为空",groups = {MingruiOperation.Add.class  })
     private String title;
 
     @ApiModelProperty(value = "商品的图片，多个图片以‘,’分割")
     private String images;
 
     @ApiModelProperty(value = "销售价格，单位为分", example = "1")
+    @NotNull(message = "销售价格不能为空",groups= {MingruiOperation.Add.class})
     private Integer price;
 
     @ApiModelProperty(value = "特有规格属性在spu属性模板中的对应下标组合")

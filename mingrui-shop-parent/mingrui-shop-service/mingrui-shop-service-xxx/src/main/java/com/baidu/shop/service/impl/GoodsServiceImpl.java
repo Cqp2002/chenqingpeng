@@ -186,4 +186,16 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         this.deleteSkusAndStock(spuId);
         return this.setResultSuccess();
     }
+
+    @Override
+    public Result<JSONObject> xiajia(Integer spuId) {
+        SpuEntity spuEntity = spuMapper.selectByPrimaryKey(spuId);
+        if(spuEntity.getSaleable() == 1){
+            spuEntity.setSaleable(0);
+        }else {
+            spuEntity.setSaleable(1);
+        }
+        spuMapper.updateByPrimaryKeySelective(spuEntity);
+        return this.setResultSuccess(spuEntity.getSaleable());
+    }
 }
