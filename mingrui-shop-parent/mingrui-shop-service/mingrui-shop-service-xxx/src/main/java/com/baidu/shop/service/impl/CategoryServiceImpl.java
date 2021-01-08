@@ -38,7 +38,6 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
     @Override
     @Transactional
     public Result<JsonObject> deleteCategoryById(Integer id) {
-
         //判断id是否为空 或 小于0
         if(ObjectUtil.isNull(id) || id <= 0) return this.setResultError("id不合法");
         CategoryEntity categoryEntity = categoryMapper.selectByPrimaryKey(id);
@@ -47,7 +46,6 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         //判断查询数据的父节点下有无其他节点
         if(categoryEntity.getIsParent() >= 1) return this.setResultError("当前节点为父节点");
         //获取父节点下的其他子节点的数据
-
         //如果当前分类被品牌绑定的话不能被删除 --> 通过分类id查询中间表是否有数据 true : 当前分类不能被删除 false:继续执行
         Example example1 = new Example(CategoryBrandEntity.class);
         example1.createCriteria().andEqualTo("brandId",id);
@@ -66,8 +64,6 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
             //将该节点的id修改为该节点的父id
             categoryEntity1.setId(categoryEntity.getParentId());
             categoryMapper.updateByPrimaryKeySelective(categoryEntity1);
-
-
         }
         //执行删除操作
         categoryMapper.deleteByPrimaryKey(id);

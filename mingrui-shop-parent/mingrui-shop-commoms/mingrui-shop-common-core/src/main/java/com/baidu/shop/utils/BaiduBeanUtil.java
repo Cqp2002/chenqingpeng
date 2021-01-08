@@ -6,7 +6,6 @@ import org.springframework.beans.BeanUtils;
 public class BaiduBeanUtil<T> {
 
     public static <T> T copyProperties(Object source,Class<T> clazz){
-
         try {
             T t = clazz.newInstance();//创建当前类型的实例
             BeanUtils.copyProperties(source,t);
@@ -16,7 +15,6 @@ public class BaiduBeanUtil<T> {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

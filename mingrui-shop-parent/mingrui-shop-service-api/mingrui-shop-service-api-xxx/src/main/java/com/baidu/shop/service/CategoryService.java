@@ -22,11 +22,12 @@ public interface CategoryService {
     @DeleteMapping(value = "/category/delete")
     Result<JsonObject> deleteCategoryById(Integer id);
 
+
     @ApiOperation(value = "通过id修改name")
     @PutMapping(value = "/category/edit")
     Result<JsonObject> putCategoryById(@Validated({MingruiOperation.Update.class}) @RequestBody CategoryEntity categoryEntity);
 
-    @ApiOperation(value = "新增")
+    @ApiOperation(value = "分类新增")
     @PostMapping(value = "/category/save")
     Result<JsonObject> addCategoryEntity(@Validated({MingruiOperation.Add.class}) @RequestBody CategoryEntity categoryEntity);
 
