@@ -54,10 +54,13 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         Example.Criteria criteria = example.createCriteria();
 
         //条件查询
+
         if(ObjectUtil.isNotNull(spuDTO.getSaleable()) && spuDTO.getSaleable() < 2)
             criteria.andEqualTo("saleable",spuDTO.getSaleable());
         if(!StringUtils.isEmpty(spuDTO.getTitle()))
             criteria.andLike("title","%" + spuDTO.getTitle() + "%");
+        if(ObjectUtil.isNotNull(spuDTO.getId()))
+            criteria.andEqualTo("id",spuDTO.getId());
 
         //分页查询
         List<SpuEntity> spuEntities = spuMapper.selectByExample(example);
@@ -118,7 +121,6 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
             stockMapper.insertSelective(stockEntity);
         });
 
-
         return this.setResultSuccess();
     }
 
@@ -169,7 +171,7 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
 
     @Override
     public Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId) {
-       SpuDetailEntity spuDetailEntity = spuDetailMapper.selectByPrimaryKey(spuId);
+        SpuDetailEntity spuDetailEntity = spuDetailMapper.selectByPrimaryKey(spuId);
         return this.setResultSuccess(spuDetailEntity);
     }
 
@@ -198,4 +200,5 @@ public class GoodsServiceImpl extends BaseApiService implements GoodsService {
         spuMapper.updateByPrimaryKeySelective(spuEntity);
         return this.setResultSuccess(spuEntity.getSaleable());
     }
+
 }

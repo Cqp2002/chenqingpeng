@@ -79,6 +79,18 @@ public class SpecificationServiceImpl extends BaseApiService implements Specific
             criteria.andEqualTo("groupId",specParamEntity.getGroupId());
         if(ObjectUtil.isNotNull(specParamEntity.getCid()))
             criteria.andEqualTo("cid",specParamEntity.getCid());
+        /*
+         * 史诗级错误start
+         * 括号中 是specParamDTO
+         * 我写成了specParamEntity 低级错误 md
+         * 2021年3月8号 晚自习因为这个错找了一节课半 心态裂开
+         * */
+        if(ObjectUtil.isNotNull(specParamDTO.getGeneric())){
+            criteria.andEqualTo("generic",specParamEntity.getGeneric());
+        }
+        /*
+        * 史诗级错误end
+        * */
 
         List<SpecParamEntity> specParamEntities = specParamMapper.selectByExample(example);
 

@@ -15,6 +15,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>mingrui-shop-service-api-xxx</module>
+        <module>mingrui-shop-service-api-search</module>
+        <module>mingrui-shop-service-api-template</module>
+        <module>mingrui-shop-service-api-template</module>
+        <module>mingrui-shop-service-api-template</module>
+        <module>mingrui-shop-service-api-templates</module>
     </modules>
     <dependencies>
         <!-- SpringBoot-整合Web组件 -->
@@ -47,6 +52,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.10</version>
+        </dependency>
+
+        <!--feign get请求需要使用@SpringQueryMap注解-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
     </dependencies>

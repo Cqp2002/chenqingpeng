@@ -1,0 +1,8 @@
+server:
+    port: 8300
+spring:
+    elasticsearch:
+        rest:
+            uris: 82.156.80.119:9200
+    application:
+        name: search-server

@@ -10,6 +10,7 @@ import com.baidu.shop.validate.group.MingruiOperation;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public interface GoodsService {
 
     @ApiOperation(value = "查询spu信息")
     @GetMapping(value = "/goods/getSpuInfo")
-    Result<List<SpuDTO>> getSpuInfo(SpuDTO spuDTO);
+    Result<List<SpuDTO>> getSpuInfo(@SpringQueryMap SpuDTO spuDTO);
 
     @ApiOperation(value = "新增商品")
     @PostMapping(value = "/goods/save")
@@ -32,11 +33,11 @@ public interface GoodsService {
 
     @ApiOperation(value = "通过spuId查询spudetail信息")
     @GetMapping(value = "/goods/getSpuDetailBySpuId")
-    Result<SpuDetailEntity> getSpuDetailBySpuId(Integer spuId);
+    Result<SpuDetailEntity> getSpuDetailBySpuId(@RequestParam Integer spuId);
 
     @ApiOperation(value = "通过spuId查询spudetail信息")
     @GetMapping(value = "/goods/getSkusBySquId")
-    Result<List<SkuDTO>> getSkusBySquId(Integer spuId);
+    Result<List<SkuDTO>> getSkusBySquId(@RequestParam Integer spuId);
 
     @ApiOperation(value = "删除商品")
     @DeleteMapping(value = "/goods/delete")
@@ -45,5 +46,8 @@ public interface GoodsService {
     @ApiOperation(value = "删除商品")
     @GetMapping(value = "/goods/xiajia")
     Result<JSONObject> xiajia(Integer spuId);
+
+
+
 
 }

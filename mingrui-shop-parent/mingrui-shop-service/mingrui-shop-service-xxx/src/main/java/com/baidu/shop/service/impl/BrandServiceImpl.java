@@ -10,6 +10,7 @@ import com.baidu.shop.mapper.BrandMapper;
 import com.baidu.shop.mapper.CategoryBrandMapper;
 import com.baidu.shop.service.BrandService;
 import com.baidu.shop.utils.BaiduBeanUtil;
+import com.baidu.shop.utils.ObjectUtil;
 import com.baidu.shop.utils.PinyinUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -38,13 +39,21 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
     public Result<PageInfo<BrandEntity>> getBrandInfo(BrandDTO brandDTO) {
 
         //分页
-        PageHelper.startPage(brandDTO.getPage(),brandDTO.getRows());
+        if(ObjectUtil.isNotNull(brandDTO.getPage()) && ObjectUtil.isNotNull(brandDTO.getRows()))
+            PageHelper.startPage(brandDTO.getPage(),brandDTO.getRows());
         //排序
         if(!StringUtils.isEmpty(brandDTO.getSort())) PageHelper.orderBy(brandDTO.getOrderBy());
         //条件查询
         BrandEntity brandEntity = BaiduBeanUtil.copyProperties(brandDTO, BrandEntity.class);
         Example example = new Example(BrandEntity.class);
-        example.createCriteria().andLike("name","%" + brandEntity.getName() + "%");
+        Example.Criteria criteria = example.createCriteria();
+      /*  if(!StringUtils.isEmpty(brandEntity.getName())
+            criteria.andLike("name", "%" + brandEntity.getName() + "%");*/
+        if(!StringUtils.isEmpty(brandEntity.getName()))
+            criteria.andLike("name","%" + brandEntity.getName() + "%");
+        if(ObjectUtil.isNotNull(brandDTO.getId()))
+            criteria.andEqualTo("id",brandDTO.getId());
+
         //查询
         List<BrandEntity> brandEntities = brandMapper.selectByExample(example);
         PageInfo<BrandEntity> objectPageInfo = new PageInfo<>(brandEntities);
@@ -134,6 +143,13 @@ public class BrandServiceImpl extends BaseApiService implements BrandService {
         List<BrandEntity> list = brandMapper.getBrandInfoByCategoryId(cid);
 
         return this.setResultSuccess(list);
+    }
+
+    @Override
+    public Result<List<BrandEntity>> getBrandByIdList(String ids) {
+        List<Integer> idList = Arrays.asList(ids.split(",")).stream().map(idStr -> Integer.valueOf(idStr)).collect(Collectors.toList());
+        List<BrandEntity> brandEntityData = brandMapper.selectByIdList(idList);
+        return this.setResultSuccess(brandEntityData);
     }
 
     private void deleteCategoryBrandByBrandId(Integer brandId){

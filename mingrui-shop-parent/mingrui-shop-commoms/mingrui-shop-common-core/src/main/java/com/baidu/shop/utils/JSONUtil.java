@@ -50,6 +50,19 @@ public class JSONUtil {
         return gson.fromJson(json, clz);
     }
 
+    public static Map<String, String> toMapValueString(String json) {
+        Map<String, String> map = gson.fromJson(json, new TypeToken<Map<String,
+                String>>() {
+        }.getType());
+        return map;
+    }
+    public static Map<String, List<String>> toMapValueStrList(String json) {
+        Map<String, List<String>> map = gson.fromJson(json, new
+                TypeToken<Map<String, List<String>>>() {}.getType());
+        return map;
+    }
+
+
     public static <T> Map<String, T> toMap(String json, Class<T> clz) {
         Map<String, JsonObject> map = gson.fromJson(json, new TypeToken<Map<String, JsonObject>>() {
         }.getType());
